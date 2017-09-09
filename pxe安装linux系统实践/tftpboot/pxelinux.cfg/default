@@ -1,0 +1,12 @@
+default linux
+timeout 600
+display boot.msg
+label linux
+  menu label ^Install or upgrade an existing system
+  menu default
+  kernel vmlinuz
+  append initrd=initrd.img ks=nfs:192.168.92.3:/ks/ks.cfg
+label rescue
+  menu label ^Rescue installed system
+  kernel vmlinuz
+  append initrd=initrd.img rescue
