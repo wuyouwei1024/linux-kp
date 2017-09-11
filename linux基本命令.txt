@@ -1,0 +1,130 @@
+在企业生产环境中，linux主要担当服务器的角色，而图形界面会占用大量的系统资源。
+依次，从运行效率一级资源占用率的角度考虑，通常会使用命令行完成日常工作。
+
+熟悉linux的命令是必须的基本功。
+
+## pwd 返回当前目录
+# pwd
+# pwd -P #返回链接的真实路径
+
+## cd 切换目录
+# cd /tmp
+# cd ..  # 返回上级目录
+# cd -   # 切换回原来目录
+# cd     # 切换到该用户的家目录
+
+## ls 显示目录与文件信息
+# ls      #显示目录或文件
+# ls /etc #显示目录下的文件和子目录
+# ls -al  #能够显示隐藏文件
+# ls -lh  #显示文件大小容量
+# ls -lt  #按修改时间排序
+
+## touch 创建空文件
+
+## mkdir 创建目录
+# mkdir -p  /tmp/test/123/haha  #创建多级目录
+
+## cp 复制文件与目录 (要注意)
+# cp /etc/hosts /tmp/        # 复制文件/etc/hosts至/tmp目录下
+# cp /etc/hosts /tmp/host    # 复制文件/etc/hosts至/tmp目录下并改名为host
+# cp -r /var/log/ /tmp/      # 复制目录/var/log至/tmp/目录下
+
+## rm 删除文件或目录
+# rm 1.log    #默认带i参数，会提示是否删除
+# rm -rf test #强制删除目录，并且不提示
+
+## find 搜索文件或目录 (重要&&实用)
+# find . -name "1.log"        #当前目录下寻找1.log文件
+# find /root -name "*.log"    #查找/root目录下所有以.log结尾的档案
+# find -iname "test"          #不分大小写的查找test
+# find . -empty               #查找所有的空文档
+# find . -group gdm           #查找组为gdm的文档
+# find / -mtime -3            #查询3天(内)被修改的文件
+# find / -mtime +4            #查询4天(前)被修改的文件
+# find / -mtime 2             #查询2天前当天被修改过的档案
+# find . -size +10M           #查询当前目录下大于10MB的档案
+# find . -type f              #查询当前目录下所有的普通文件
+# find . -user wu			  #查询所有者为wu的用户
+# find . -size +1k -exec ls -l {} \;  #查询大于1K的文件的详细信息 （重要）
+# find . -size +1k -a -type f #查找大于1K的普通文件
+# find . -name "*.done" |xargs rm     #批量删除
+
+## du 计算文件或目录的容量
+# du -sh /root
+
+## cat 查看文件内容
+# cat -n /etc/passwd  #显示行号及内容
+
+## more 分页查看内容
+# more 1.log
+
+## less 分页查看下一页 (推荐使用)
+# less /var/log/message
+
+## head 查看文件头部
+# head -20 /root/install.log  #查看文件前20行
+
+## tail 查看文件尾部
+# tail -20 /root/install.log  #查看文件末尾20行
+# tail -f /var/log/message    #实时动态查看文件内容
+
+## wc显示文件的行、单词、及字节统计
+# wc -l /root/install.log  #显示文件的行数 (常用)
+
+## grep 查找关键词并打印匹配的行
+# grep --color th test.txt  #对匹配的关键字th显示颜色
+# grep -i the test.txt      #过滤包含the的行(不区分大小写)
+# grep -w num test.txt      #过滤单词num
+# grep -v the test.txt      #取反匹配  过滤不包含the关键字的行
+
+## echo 显示指定的文本
+# echo  -n "123"  # -n表示不换行
+# echo -e "123 \t 456\n  789 \t"  #-e支持转义
+# 
+
+## ln -s软链接  不带参数硬链接
+# ln -s /var/log/messages .   #创建message的软连接
+# ln -s /root/bak/ /tmp/bak   #创建bak的软链接
+
+# ln /test/h1.log /test/ha.log #创建硬链接
+# rm /test/h1.log              #删除源文件，不影响链接文件的使用(注意：硬链接不能跨分区)
+
+## gzip 压缩和解压缩
+# gzip test  #文件压缩后名为test.gz(源文件消失)
+# gzip -d test.gz  #解压完，压缩文件消失
+
+## bzip2 压缩和解压缩
+# bzip2 test #文件压缩后为test.bzip2(源文件消失)
+# bzip2 -d test.bzip2  #解压完，压缩文件消失
+
+### gzip和bzip2工具不可以对目录做打包压缩操作
+
+## tar 打包与解压 (推荐使用)
+# tar cfvz etc.tar.gz /etc  #打包/etc文件为etc.tar.gz包
+# tar cfvx etc.tar.gz -C /tmp/  #解包到/tmp目录下
+# tar --delete etc/hosts -f etc.tar  #从打包文档中删除文件hosts
+# tar -f etc.tar -r /root/install.log #追加文件至打包文档etc.tar中
+# tar -tf 20170801_etc.tar.gz  #查看包内文档的详细信息
+# tar -xjf etc.tar.bz2  #解压bz2格式的打包文档
+
+命令技巧：
+1.Tab键
+2.history
+3.clear |Ctrl +l
+4.which `cmd` 
+
+查帮助
+# man yum
+# info yum
+# yum --help
+
+
+
+
+
+
+
+
+
+ 
